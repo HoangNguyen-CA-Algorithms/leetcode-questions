@@ -1,5 +1,5 @@
 //Kadane's algorithm
-var maxSubArray = function (nums) {
+var maxSubArray1 = function (nums) {
   let bestPrev = nums[0];
   let max = nums[0];
   for (i = 0; i < nums.length; i++) {
@@ -16,4 +16,6 @@ var maxSubArray = function (nums) {
   return max;
 };
 
-console.log(maxSubArray([-2, 1, -3, 4, -1, 2, 1, -5, 4]));
+var maxSubArray2 = function (nums) {};
+
+console.log(maxSubArray1([-2, 1, -3, 4, -1, 2, 1, -5, 4]));
