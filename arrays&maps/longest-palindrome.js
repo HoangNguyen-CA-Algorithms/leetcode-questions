@@ -12,7 +12,7 @@ var longestPalindrome = function (s) {
       map.set(curr, map.get(curr) + 1);
     }
   }
-
+  1;
   let length = 0;
   let single = false;
   for (let [key, val] of map) {
