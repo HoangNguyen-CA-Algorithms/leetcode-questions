@@ -11,7 +11,7 @@
  * @param {number} k
  * @return {number}
  */
-var kthSmallest = function (root, k) {
+var kthSmallest1 = function (root, k) {
   let arr = [];
   helper(root, arr);
   return arr[k - 1];
@@ -22,4 +22,26 @@ let helper = (node, arr) => {
   helper(node.left, arr);
   arr.push(node.val);
   helper(node.right, arr);
+};
+
+var kthSmallest = function (root, k) {
+  let stack = [];
+  let curr = root;
+  let i = 0;
+
+  while (stack.length > 0 || curr !== null) {
+    while (curr !== null) {
+      stack.push(curr);
+      curr = curr.left;
+    }
+    curr = stack.pop();
+    i++;
+    if (i === k) {
+      return curr.val;
+    }
+
+    curr = curr.right; // IF STATEMENT BREAKS IT!
+  }
+
+  return -1;
 };
