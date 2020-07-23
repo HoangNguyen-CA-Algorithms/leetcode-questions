@@ -10,7 +10,7 @@
  * @param {TreeNode} root
  * @return {number[][]}
  */
-var levelOrder = function (root) {
+var levelOrderbad = function (root) {
   if (root == null) return [];
   root.id = 0;
 
@@ -36,6 +36,42 @@ var levelOrder = function (root) {
       curr.right.id = curr.id + 1;
       q.push(curr.right);
     }
+  }
+
+  return ans;
+};
+
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number[][]}
+ */
+var levelOrder = function (root) {
+  if (root === null) return [];
+  let ans = [];
+  let queue = [root];
+
+  while (queue.length > 0) {
+    let length = queue.length;
+    let level = [];
+    for (let i = 0; i < length; i++) {
+      let top = queue[queue.length - 1];
+      if (top.left !== null) {
+        queue.unshift(top.left);
+      }
+      if (top.right !== null) {
+        queue.unshift(top.right);
+      }
+      level.push(queue.pop().val);
+    }
+    ans.push(level);
   }
 
   return ans;

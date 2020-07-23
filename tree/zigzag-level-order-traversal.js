@@ -1,51 +1,29 @@
-/**
- * Definition for a binary tree node.
- * function TreeNode(val, left, right) {
- *     this.val = (val===undefined ? 0 : val)
- *     this.left = (left===undefined ? null : left)
- *     this.right = (right===undefined ? null : right)
- * }
- */
-/**
- * @param {TreeNode} root
- * @return {number[][]}
- */
 var zigzagLevelOrder = function (root) {
   if (root === null) return [];
   let ans = [];
-  root.level = 0;
   let queue = [root];
 
-  let currLevel = 0;
-
-  let level = [];
+  let even = true;
 
   while (queue.length > 0) {
-    let curr = queue.pop();
-    if (curr.level !== currLevel) {
-      ans.push(level);
-      currLevel = curr.level;
-      level = [];
-    }
+    let length = queue.length;
+    let level = [];
+    for (let i = 0; i < length; i++) {
+      let top = queue[queue.length - 1];
+      if (top.left !== null) {
+        queue.unshift(top.left);
+      }
+      if (top.right !== null) {
+        queue.unshift(top.right);
+      }
 
-    if (curr.level % 2 === 0) {
-      level.push(curr.val);
-    } else {
-      level.unshift(curr.val);
+      let val = queue.pop().val;
+      if (even) level.push(val);
+      else level.unshift(val);
     }
-
-    if (curr.left) {
-      curr.left.level = curr.level + 1;
-      queue.unshift(curr.left);
-    }
-    if (curr.right) {
-      curr.right.level = curr.level + 1;
-      queue.unshift(curr.right);
-    }
-  }
-
-  if (level.length > 0) {
+    even = !even;
     ans.push(level);
   }
+
   return ans;
 };
