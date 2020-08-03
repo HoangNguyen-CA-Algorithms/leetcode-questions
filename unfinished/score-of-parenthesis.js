@@ -4,7 +4,7 @@
  */
 
 //divide and conquer
-var scoreOfParentheses = function (S) {
+var scoreOfParentheses1 = function (S) {
   let ans = helper(S, 0, S.length - 1);
   return ans;
 };
@@ -32,6 +32,21 @@ var helper = function (S, l, r) {
   }
 
   return besideSum;
+};
+
+var scoreOfParentheses = function (S) {
+  let stack = [0];
+
+  for (let s of S) {
+    if (s === '(') {
+      stack.push(0);
+    } else {
+      let n1 = stack.pop();
+      let n2 = stack.pop();
+      stack.push(n2 + Math.max(n1 * 2, 1));
+    }
+  }
+  return stack[0];
 };
 
 console.log(scoreOfParentheses('(()(()))'));
